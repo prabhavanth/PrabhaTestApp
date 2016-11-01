@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Test App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  <div class="jumbotron text-center">
+    <h1>Test App</h1>
+    <p>You can add a test</p>
+  </div>
+
+<div class="container" id="addTestDiv">
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="codeName">Module code name:</label>
+    <div class="col-sm-6 input-group">
+      <input type="text" class="form-control" id="codeName" placeholder="Enter code name">
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="moduleName">Module name:</label>
+    <div class="col-sm-6 input-group">
+      <input type="text" class="form-control" id="moduleName" placeholder="Enter module name">
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="testerInitials">Tester Initials:</label>
+    <div class="col-sm-6 input-group">
+      <input type="text" class="form-control" id="testerInitials" placeholder="Enter tester initials">
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+    </div>
+  </div>
+  <div class="form-group has-feedback">
+    <label class="control-label col-sm-2" for="productionMacroCall">Production Macro call:</label>
+    <div class="col-sm-6 input-group">
+      <div class="input-group-addon">%</div>
+      <input type="text" class="form-control" id="productionMacroCall" placeholder="Enter production macro call">
+      <div class="input-group-addon">;</div>
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="testMacroCall">Test Macro call:</label>
+    <div class="col-sm-6 input-group">
+      <div class="input-group-addon">%</div>
+      <input type="text" class="form-control" id="testMacroCall" placeholder="Enter test macro call">
+        <div class="input-group-addon">;</div>
+        <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray! Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray! Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray!">?</a></div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="noOfDataSets">No of Data sets:</label>
+    <div class="col-sm-6 input-group">
+      <select class="form-control" id="noOfDataSets">
+       <option>0</option>
+       <option>1</option>
+       <option>2</option>
+       <option>3</option>
+       <option>4</option>
+       <option>5</option>
+       <option>6</option>
+       <option>7</option>
+       <option>8</option>
+       <option>9</option>
+       <option>10</option>
+     </select>
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+    </div>
+  </div>
+  <div class="form-group" id="dataSetsDiv">
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </div>
+</form>
+</div>
+<script>
+var noOfDataSets = 0;
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    $("#noOfDataSets").change(function(){
+      noOfDataSets = document.getElementById("noOfDataSets").value;
+        showDataSetDiv();
+    });
+});
+
+function showDataSetDiv(){
+  $('#dataSetsDiv').replaceWith('<div class="form-group" id="dataSetsDiv"></div>');
+  for(i=1;i<=noOfDataSets;i++){
+    eachDataSetDiv(i);
+  }
+}
+
+function eachDataSetDiv(i){
+  var dataSetHeading = $('<p>Date set '+i+'</p>');
+  dataSetHeading.appendTo("#dataSetsDiv");
+  var dataSetName = $('<div class="form-group">'+
+    '<label class="control-label col-sm-2" for="dataSetName'+i+'">Data Set name:</label>'+
+    '<div class="col-sm-6 input-group">'+
+      '<input type="text" class="form-control" id="dataSetName'+i+'" placeholder="Enter data set name">'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+    '</div></div>');
+  dataSetName.appendTo("#dataSetsDiv");
+  var listOfVariables = $('<div class="form-group">'+
+    '<label class="control-label col-sm-2" for="listOfVariables'+i+'">List of variables:</label>'+
+    '<div class="col-sm-6 input-group">'+
+      '<textarea class="form-control" rows="5" id="listOfVariables'+i+'" placeholder="Enter list of variables"></textarea>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+    '</div></div>');
+  listOfVariables.appendTo("#dataSetsDiv");
+  var comparedWithAll = $('<div class="form-group">'+
+    '<label class="control-label col-sm-2" for="comparedWithAll'+i+'">Variables compared for all:</label>'+
+    '<div class="col-sm-6 input-group">'+
+      '<label class="radio-inline"><input type="radio" name="comparedWithAll'+i+'" value="1" checked>Yes</label>'+
+      '<label class="radio-inline"><input type="radio" name="comparedWithAll'+i+'" value="0">No</label>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+    '</div></div>');
+  comparedWithAll.appendTo("#dataSetsDiv");
+  var comparedAllNo = $('<div class="form-group" id="ifNoDiv'+i+'" style="display:none">'+
+    '<label class="control-label col-sm-2" for="variablesForNo'+i+'">Variables to be compared:</label>'+
+    '<div class="col-sm-6 input-group">'+
+      '<textarea class="form-control" rows="5" id="variablesForNo'+i+'" placeholder="Enter variables"></textarea>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+    '</div></div>');
+    comparedAllNo.appendTo("#dataSetsDiv");
+    $('input:radio').change(function() {
+      var k = this.name.slice(-1);
+      if ($(this).val() == 0) {
+        $("#ifNoDiv"+k+"").slideDown();
+      } else {
+        $("#ifNoDiv"+k+"").slideUp();
+      }
+    });
+    var filters = $('<div class="form-group">'+
+      '<label class="control-label col-sm-2" for="filters'+i+'">Filters to be applied:</label>'+
+      '<div class="col-sm-6 input-group">'+
+      '<div class="input-group-addon">where</div>'+
+        '<input type="text" class="form-control" id="filters'+i+'" placeholder="Enter filters to be applied">'+
+        '<div class="input-group-addon">;</div>'+
+        '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+      '</div></div>');
+      filters.appendTo("#dataSetsDiv");
+}
+</script>
+</body>
+</html>
