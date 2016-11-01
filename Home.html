@@ -131,27 +131,27 @@ function eachDataSetDiv(i){
   var comparedWithAll = $('<div class="form-group">'+
     '<label class="control-label col-sm-4" for="comparedWithAll'+i+'">Variables compared for all:</label>'+
     '<div class="col-sm-8 input-group">'+
-      '<label class="radio-inline"><input type="radio" name="comparedWithAll'+i+'" value="1" checked>Yes</label>'+
-      '<label class="radio-inline"><input type="radio" name="comparedWithAll'+i+'" value="0">No</label>'+
+      '<label class="radio-inline"><input type="radio" name="comparedWithAll'+i+'" value="compareYes" checked>Yes</label>'+
+      '<label class="radio-inline"><input type="radio" name="comparedWithAll'+i+'" value="compareNo">No</label>'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
     '</div></div>');
   comparedWithAll.appendTo("#dataSetsDiv");
-  var comparedAllNo = $('<div class="form-group" id="ifNoDiv'+i+'" style="display:none">'+
+  var comparedAllNo = $('<div class="form-group" id="ifComparedAllNoDiv'+i+'" style="display:none">'+
     '<label class="control-label col-sm-4" for="variablesForNo'+i+'">Variables to be compared:</label>'+
     '<div class="col-sm-8 input-group">'+
       '<textarea class="form-control" rows="5" id="variablesForNo'+i+'" placeholder="Enter variables"></textarea>'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
     '</div></div>');
     comparedAllNo.appendTo("#dataSetsDiv");
-    $('input:radio').change(function() {
-      var k = this.name.slice(-1);
-      if ($(this).val() == 0) {
-        $("#ifNoDiv"+k+"").slideDown();
-      } else {
-        $("#ifNoDiv"+k+"").slideUp();
-      }
-    });
     var filters = $('<div class="form-group">'+
+      '<label class="control-label col-sm-4" for="filters'+i+'">Filters to be applied:</label>'+
+      '<div class="col-sm-8 input-group">'+
+        '<label class="radio-inline"><input type="radio" name="filters'+i+'" value="filterYes">Yes</label>'+
+        '<label class="radio-inline"><input type="radio" name="filters'+i+'" value="filterNo" checked>No</label>'+
+        '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+      '</div></div>');
+    filters.appendTo("#dataSetsDiv");
+    var filtersYes = $('<div class="form-group" id="ifFilterYesDiv'+i+'" style="display:none">'+
       '<label class="control-label col-sm-4" for="filters'+i+'">Filters to be applied:</label>'+
       '<div class="col-sm-8 input-group">'+
       '<div class="input-group-addon">where</div>'+
@@ -159,7 +159,19 @@ function eachDataSetDiv(i){
         '<div class="input-group-addon">;</div>'+
         '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
       '</div></div>');
-      filters.appendTo("#dataSetsDiv");
+      filtersYes.appendTo("#dataSetsDiv");
+      $('input:radio').change(function() {
+        var k = this.name.slice(-1);
+        if ($(this).val() == "compareNo") {
+          $("#ifComparedAllNoDiv"+k+"").slideDown();
+        } else if($(this).val() == "compareYes") {
+          $("#ifComparedAllNoDiv"+k+"").slideUp();
+        } else if ($(this).val() == "filterYes") {
+          $("#ifFilterYesDiv"+k+"").slideDown();
+        } else if($(this).val() == "filterNo") {
+          $("#ifFilterYesDiv"+k+"").slideUp();
+        }
+      });
       $('[data-toggle="tooltip"]').tooltip();
 }
 </script>
