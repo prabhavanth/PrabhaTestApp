@@ -82,7 +82,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-4 col-sm-10">
-      <button type="button" class="btn btn-primary" >Submit</button>
+      <button type="button" class="btn btn-primary" onclick="finalOutput()">Submit</button>
     </div>
   </div>
 </form>
@@ -91,13 +91,13 @@
   <div class="panel panel-default">
   <div class="panel-heading">Output</div>
   <div class="panel-body">
-    <p>%let fsrm_module_kpi = fsrm_est_kpi ;</p>
-    <p>%let productionmacro_kpi = 'fsrm_est_kpi (property=&property, nyears_historical=3, g2database=&database, debug=&debug., ndays_future=1095)' ;</p>
-    <p>%let testmacro_kpi = 'fsrm_est_kpi_pc (g2database=&database, property=&property, work_lib=&test_lib, keep_lib=&test_lib, nyears_historical=3, ndays_future=1095)' ;</p>
-    <p>%let datasets_kpi = 'fs_property_kpi (propertyid occupancydate) (1) (propertyid=&property.) fs_propertyrevenue (propertyid occupancydate dayperiodid meetingroomtypeid revenuegroupid) (1) (propertyid=&property.)' ;</p>
-    <p>%let initials_kpi = pc ;</p>
-    <p>%let database_kpi = &jenkins_db. ;</p>
-    <p>%let property_kpi = &jenkins_pid. ;</p>
+    <p id="moduleNameOutput"></p>
+    <p id="prodMacroOutput"></p>
+    <p id="testMacroOutput"></p>
+    <p id="dataSetsOutput"></p>
+    <p id="initialsOutput"></p>
+    <p id="dataBaseOutput"></p>
+    <p id="propertyOutput"></p>
   </div>
 </div>
 </div>
@@ -108,7 +108,7 @@ var noOfDataSets = 0;
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
-    $('#codeName').click(isAlphanumeric(document.getElementById("codeName"),document.getElementById("codeNameError")));
+  //  $('#codeName').click(isAlphanumeric(document.getElementById("codeName"),document.getElementById("codeNameError")));
     $("#noOfDataSets").change(function(){
       noOfDataSets = document.getElementById("noOfDataSets").value;
         showDataSetDiv();
@@ -228,6 +228,28 @@ function postValidate(isValid, errMsg, errElm, inputElm) {
          inputElm.removeClass("errorBox");
       }
    }
+}
+
+function finalOutput(){
+  var codeName = document.getElementById("codeName").value;
+  var moduleName = document.getElementById("moduleName").value;
+  var testerInitials = document.getElementById("testerInitials").value;
+  var productionMacroCall = document.getElementById("productionMacroCall").value;
+  var testMacroCall = document.getElementById("testMacroCall").value;
+  document.getElementById("moduleNameOutput").innerHTML = "%let fsrm_module_"+codeName+" = "+moduleName+" ;"
+  document.getElementById("initialsOutput").innerHTML = "%let initials_"+codeName+" = "+testerInitials+" ;"
+  document.getElementById("dataBaseOutput").innerHTML = "%let database_"+codeName+" = &jenkins_db.;"
+  document.getElementById("propertyOutput").innerHTML = "%let property_"+codeName+" = &jenkins_pid.;"
+  document.getElementById("prodMacroOutput").innerHTML = "%let productionmacro_"+codeName+" = '"+productionMacroCall+"';"
+  document.getElementById("testMacroOutput").innerHTML = "%let testmacro_"+codeName+" = '"+testMacroCall+"';"
+  document.getElementById("dataSetsOutput").innerHTML = "%let datasets_"+codeName+" = '"+dataSetName+"("+listOfVariables+") ("+variablesCompared+") ("+filters+")';"
+  var dataSetNameArray = new Array();
+  for(var p = 1 ; p <=noOfDataSets ; p++ ){
+    var dataSetName = document.getElementById("dataSetName"+p).value;
+    dataSetNameArray[p] = dataSetName;
+  }
+  alert(dataSetNameArray);
+
 }
 </script>
 </body>
