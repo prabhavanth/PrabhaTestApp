@@ -22,21 +22,22 @@
   <div class="form-group">
     <label class="control-label col-sm-4" for="codeName">Module code name:</label>
     <div class="col-sm-8 input-group">
-      <input type="text" class="form-control" id="codeName" placeholder="Enter code name">
+      <input type="text" class="form-control" maxlength="10" id="codeName" required  placeholder="Enter code name">
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
     </div>
+
   </div>
   <div class="form-group">
     <label class="control-label col-sm-4" for="moduleName">Module name:</label>
     <div class="col-sm-8 input-group">
-      <input type="text" class="form-control" id="moduleName" placeholder="Enter module name">
+      <input type="text" class="form-control" id="moduleName" required  maxlength="32" placeholder="Enter module name">
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
     </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-4" for="testerInitials">Tester Initials:</label>
     <div class="col-sm-8 input-group">
-      <input type="text" class="form-control" id="testerInitials" placeholder="Enter tester initials">
+      <input type="text" class="form-control" maxlength="5" required  id="testerInitials" placeholder="Enter tester initials">
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
     </div>
   </div>
@@ -44,7 +45,7 @@
     <label class="control-label col-sm-4" for="productionMacroCall">Production Macro call:</label>
     <div class="col-sm-8 input-group">
       <div class="input-group-addon">%</div>
-      <textarea class="form-control" rows="3" id="productionMacroCall" placeholder="Enter production macro call"></textarea>
+      <textarea class="form-control" rows="3" required id="productionMacroCall" placeholder="Enter production macro call"></textarea>
       <div class="input-group-addon">;</div>
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
     </div>
@@ -53,7 +54,7 @@
     <label class="control-label col-sm-4" for="testMacroCall">Test Macro call:</label>
     <div class="col-sm-8 input-group">
       <div class="input-group-addon">%</div>
-      <textarea class="form-control" rows="3" id="testMacroCall" placeholder="Enter test macro call"></textarea>
+      <textarea class="form-control" rows="3" required id="testMacroCall" placeholder="Enter test macro call"></textarea>
         <div class="input-group-addon">;</div>
         <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray! Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray! Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray!">?</a></div>
     </div>
@@ -77,7 +78,7 @@
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
     </div>
   </div>
-  <div class="form-group" id="dataSetsDiv">
+  <div id="dataSetsDiv">
   </div>
   <div class="form-group">
     <div class="col-sm-offset-4 col-sm-10">
@@ -86,10 +87,19 @@
   </div>
 </form>
 </div>
-<div class="col-sm-1">
+<div class="col-sm-5">
+  <div class="panel panel-default">
+  <div class="panel-heading">Output</div>
+  <div class="panel-body">
+    <p>%let fsrm_module_kpi = fsrm_est_kpi ;</p>
+    <p>%let productionmacro_kpi = 'fsrm_est_kpi (property=&property, nyears_historical=3, g2database=&database, debug=&debug., ndays_future=1095)' ;</p>
+    <p>%let testmacro_kpi = 'fsrm_est_kpi_pc (g2database=&database, property=&property, work_lib=&test_lib, keep_lib=&test_lib, nyears_historical=3, ndays_future=1095)' ;</p>
+    <p>%let datasets_kpi = 'fs_property_kpi (propertyid occupancydate) (1) (propertyid=&property.) fs_propertyrevenue (propertyid occupancydate dayperiodid meetingroomtypeid revenuegroupid) (1) (propertyid=&property.)' ;</p>
+    <p>%let initials_kpi = pc ;</p>
+    <p>%let database_kpi = &jenkins_db. ;</p>
+    <p>%let property_kpi = &jenkins_pid. ;</p>
+  </div>
 </div>
-<div class="col-sm-4">
-  <p>123456789012345678901234567890123456789012345</p>
 </div>
 </div>
 </div>
@@ -98,6 +108,7 @@ var noOfDataSets = 0;
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
+    $('#codeName').click(isAlphanumeric(document.getElementById("codeName"),document.getElementById("codeNameError")));
     $("#noOfDataSets").change(function(){
       noOfDataSets = document.getElementById("noOfDataSets").value;
         showDataSetDiv();
@@ -117,14 +128,14 @@ function eachDataSetDiv(i){
   var dataSetName = $('<div class="form-group">'+
     '<label class="control-label col-sm-4" for="dataSetName'+i+'">Data Set name:</label>'+
     '<div class="col-sm-8 input-group">'+
-      '<input type="text" class="form-control" id="dataSetName'+i+'" placeholder="Enter data set name">'+
+      '<input type="text" class="form-control" required maxlength="32" id="dataSetName'+i+'" placeholder="Enter data set name">'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
     '</div></div>');
   dataSetName.appendTo("#dataSetsDiv");
   var listOfVariables = $('<div class="form-group">'+
     '<label class="control-label col-sm-4" for="listOfVariables'+i+'">List of variables:</label>'+
     '<div class="col-sm-8 input-group">'+
-      '<textarea class="form-control" rows="5" id="listOfVariables'+i+'" placeholder="Enter list of variables"></textarea>'+
+      '<textarea class="form-control" required rows="5" id="listOfVariables'+i+'" placeholder="Enter list of variables"></textarea>'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
     '</div></div>');
   listOfVariables.appendTo("#dataSetsDiv");
@@ -142,37 +153,81 @@ function eachDataSetDiv(i){
       '<textarea class="form-control" rows="5" id="variablesForNo'+i+'" placeholder="Enter variables"></textarea>'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
     '</div></div>');
-    comparedAllNo.appendTo("#dataSetsDiv");
-    var filters = $('<div class="form-group">'+
-      '<label class="control-label col-sm-4" for="filters'+i+'">Filters to be applied:</label>'+
-      '<div class="col-sm-8 input-group">'+
-        '<label class="radio-inline"><input type="radio" name="filters'+i+'" value="filterYes">Yes</label>'+
-        '<label class="radio-inline"><input type="radio" name="filters'+i+'" value="filterNo" checked>No</label>'+
-        '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
-      '</div></div>');
-    filters.appendTo("#dataSetsDiv");
-    var filtersYes = $('<div class="form-group" id="ifFilterYesDiv'+i+'" style="display:none">'+
-      '<label class="control-label col-sm-4" for="filters'+i+'">Filters to be applied:</label>'+
-      '<div class="col-sm-8 input-group">'+
-      '<div class="input-group-addon">where</div>'+
-        '<input type="text" class="form-control" id="filters'+i+'" placeholder="Enter filters to be applied">'+
-        '<div class="input-group-addon">;</div>'+
-        '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
-      '</div></div>');
-      filtersYes.appendTo("#dataSetsDiv");
-      $('input:radio').change(function() {
-        var k = this.name.slice(-1);
-        if ($(this).val() == "compareNo") {
-          $("#ifComparedAllNoDiv"+k+"").slideDown();
-        } else if($(this).val() == "compareYes") {
-          $("#ifComparedAllNoDiv"+k+"").slideUp();
-        } else if ($(this).val() == "filterYes") {
-          $("#ifFilterYesDiv"+k+"").slideDown();
-        } else if($(this).val() == "filterNo") {
-          $("#ifFilterYesDiv"+k+"").slideUp();
-        }
-      });
-      $('[data-toggle="tooltip"]').tooltip();
+  comparedAllNo.appendTo("#dataSetsDiv");
+  var filters = $('<div class="form-group">'+
+    '<label class="control-label col-sm-4" for="filters'+i+'">Filters to be applied:</label>'+
+    '<div class="col-sm-8 input-group">'+
+      '<label class="radio-inline"><input type="radio" name="filters'+i+'" value="filterYes">Yes</label>'+
+      '<label class="radio-inline"><input type="radio" name="filters'+i+'" value="filterNo" checked>No</label>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+    '</div></div>');
+  filters.appendTo("#dataSetsDiv");
+  var filtersYes = $('<div class="form-group" id="ifFilterYesDiv'+i+'" style="display:none">'+
+    '<label class="control-label col-sm-4" for="filters'+i+'">Filters to be applied:</label>'+
+    '<div class="col-sm-8 input-group">'+
+    '<div class="input-group-addon">where</div>'+
+      '<input type="text" class="form-control" id="filters'+i+'" placeholder="Enter filters to be applied">'+
+      '<div class="input-group-addon">;</div>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+    '</div></div>');
+  filtersYes.appendTo("#dataSetsDiv");
+  $('input:radio').change(function() {
+    var k = this.name.slice(-1);
+    if ($(this).val() == "compareNo") {
+      $("#ifComparedAllNoDiv"+k+"").slideDown();
+    } else if($(this).val() == "compareYes") {
+      $("#ifComparedAllNoDiv"+k+"").slideUp();
+    } else if ($(this).val() == "filterYes") {
+      $("#ifFilterYesDiv"+k+"").slideDown();
+    } else if($(this).val() == "filterNo") {
+      $("#ifFilterYesDiv"+k+"").slideUp();
+    }
+  });
+  $('[data-toggle="tooltip"]').tooltip();
+}
+
+function isNumeric(inputElm, errElm, errMsg) {
+   var isValid = (inputElm.value.trim().match(/^\d+$/) !== null);
+   postValidate(isValid, errMsg, errElm, inputElm);
+   return isValid;
+}
+
+/* Validate that input value contains only one or more letters */
+function isAlphabetic(inputElm, errElm, errMsg) {
+   var isValid = (inputElm.value.trim().match(/^[a-zA-Z]+$/) !== null) ;
+   postValidate(isValid, errMsg, errElm, inputElm);
+   return isValid;
+}
+
+/* Validate that input value contains one or more digits or letters */
+function isAlphanumeric(inputElm,errElm) {
+   var isValid = (inputElm.value.trim().match(/^[0-9a-zA-Z_]+$/) !== null);
+   var errMsg = "Please match the requested format.";
+   postValidate(isValid, errMsg, errElm, inputElm);
+   return isValid;
+}
+
+function postValidate(isValid, errMsg, errElm, inputElm) {
+   if (!isValid) {
+      // Show errMsg on errElm, if provided.
+      if (errElm !== undefined && errElm !== null
+            && errMsg !== undefined && errMsg !== null) {
+         errElm.innerHTML = errMsg;
+      }
+      // Set focus on Input Element for correcting error, if provided.
+      if (inputElm !== undefined && inputElm !== null) {
+         inputElm.style.borderColor = "red";  // Add class for styling
+         inputElm.focus();
+      }
+   } else {
+      // Clear previous error message on errElm, if provided.
+      if (errElm !== undefined && errElm !== null) {
+         errElm.html('');
+      }
+      if (inputElm !== undefined && inputElm !== null) {
+         inputElm.removeClass("errorBox");
+      }
+   }
 }
 </script>
 </body>
