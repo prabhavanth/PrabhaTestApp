@@ -7,6 +7,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .errorBox {
+   border-color: red;
+  }
+  </style>
 </head>
 <body>
 
@@ -25,7 +30,11 @@
       <input type="text" class="form-control" maxlength="10" id="codeName" required  placeholder="Enter code name">
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
     </div>
-
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-8">
+      <p id="codeNameError" style="color:red"></p>
+    </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-4" for="moduleName">Module name:</label>
@@ -33,12 +42,22 @@
       <input type="text" class="form-control" id="moduleName" required  maxlength="32" placeholder="Enter module name">
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
     </div>
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-8">
+      <p id="codeNameError" style="color:red"></p>
+    </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-4" for="testerInitials">Tester Initials:</label>
     <div class="col-sm-8 input-group">
       <input type="text" class="form-control" maxlength="5" required  id="testerInitials" placeholder="Enter tester initials">
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+    </div>
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-8">
+      <p id="codeNameError" style="color:red"></p>
     </div>
   </div>
   <div class="form-group has-feedback">
@@ -49,6 +68,11 @@
       <div class="input-group-addon">;</div>
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
     </div>
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-8">
+      <p id="codeNameError" style="color:red"></p>
+    </div>
   </div>
   <div class="form-group">
     <label class="control-label col-sm-4" for="testMacroCall">Test Macro call:</label>
@@ -57,6 +81,11 @@
       <textarea class="form-control" rows="3" required id="testMacroCall" placeholder="Enter test macro call"></textarea>
         <div class="input-group-addon">;</div>
         <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray! Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray! Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray!">?</a></div>
+    </div>
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-8">
+      <p id="codeNameError" style="color:red"></p>
     </div>
   </div>
   <div class="form-group">
@@ -76,6 +105,11 @@
        <option>10</option>
      </select>
       <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+    </div>
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-8">
+      <p id="codeNameError" style="color:red"></p>
     </div>
   </div>
   <div id="dataSetsDiv">
@@ -108,11 +142,14 @@ var noOfDataSets = 0;
 
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
-  //  $('#codeName').click(isAlphanumeric(document.getElementById("codeName"),document.getElementById("codeNameError")));
     $("#noOfDataSets").change(function(){
       noOfDataSets = document.getElementById("noOfDataSets").value;
         showDataSetDiv();
     });
+});
+
+$('#codeName').on('change keyup paste', function(){
+    isValid(document.getElementById("codeName"),document.getElementById("codeNameError"),/^[a-zA-Z0-9_]+$/);
 });
 
 function showDataSetDiv(){
@@ -186,22 +223,10 @@ function eachDataSetDiv(i){
   $('[data-toggle="tooltip"]').tooltip();
 }
 
-function isNumeric(inputElm, errElm, errMsg) {
-   var isValid = (inputElm.value.trim().match(/^\d+$/) !== null);
-   postValidate(isValid, errMsg, errElm, inputElm);
-   return isValid;
-}
-
-/* Validate that input value contains only one or more letters */
-function isAlphabetic(inputElm, errElm, errMsg) {
-   var isValid = (inputElm.value.trim().match(/^[a-zA-Z]+$/) !== null) ;
-   postValidate(isValid, errMsg, errElm, inputElm);
-   return isValid;
-}
 
 /* Validate that input value contains one or more digits or letters */
-function isAlphanumeric(inputElm,errElm) {
-   var isValid = (inputElm.value.trim().match(/^[0-9a-zA-Z_]+$/) !== null);
+function isValid(inputElm,errElm,regex) {
+   var isValid = (inputElm.value.match(regex) !== null);
    var errMsg = "Please match the requested format.";
    postValidate(isValid, errMsg, errElm, inputElm);
    return isValid;
@@ -222,10 +247,10 @@ function postValidate(isValid, errMsg, errElm, inputElm) {
    } else {
       // Clear previous error message on errElm, if provided.
       if (errElm !== undefined && errElm !== null) {
-         errElm.html('');
+         errElm.innerHTML = '';
       }
       if (inputElm !== undefined && inputElm !== null) {
-         inputElm.removeClass("errorBox");
+         inputElm.removeAttribute("style");
       }
    }
 }
