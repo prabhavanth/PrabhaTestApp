@@ -45,7 +45,7 @@
     <div class="col-sm-4">
     </div>
     <div class="col-sm-8">
-      <p id="codeNameError" style="color:red"></p>
+      <p id="moduleNameError" style="color:red"></p>
     </div>
   </div>
   <div class="form-group">
@@ -57,7 +57,7 @@
     <div class="col-sm-4">
     </div>
     <div class="col-sm-8">
-      <p id="codeNameError" style="color:red"></p>
+      <p id="testerInitialsError" style="color:red"></p>
     </div>
   </div>
   <div class="form-group has-feedback">
@@ -71,7 +71,7 @@
     <div class="col-sm-4">
     </div>
     <div class="col-sm-8">
-      <p id="codeNameError" style="color:red"></p>
+      <p id="productionMacroCallError" style="color:red"></p>
     </div>
   </div>
   <div class="form-group">
@@ -85,7 +85,7 @@
     <div class="col-sm-4">
     </div>
     <div class="col-sm-8">
-      <p id="codeNameError" style="color:red"></p>
+      <p id="testMacroCallError" style="color:red"></p>
     </div>
   </div>
   <div class="form-group">
@@ -109,7 +109,7 @@
     <div class="col-sm-4">
     </div>
     <div class="col-sm-8">
-      <p id="codeNameError" style="color:red"></p>
+      <p id="noOfDataSetsError" style="color:red"></p>
     </div>
   </div>
   <div id="dataSetsDiv">
@@ -149,7 +149,19 @@ $(document).ready(function(){
 });
 
 $('#codeName').on('change keyup paste', function(){
-    isValid(document.getElementById("codeName"),document.getElementById("codeNameError"),/^[a-zA-Z0-9_]+$/);
+    isValid(document.getElementById("codeName"),document.getElementById("codeNameError"),/^[a-zA-Z0-9_]+$/,"Only alphabets, numbers, underscore are allowed");
+});
+$('#moduleName').on('change keyup paste', function(){
+    isValid(document.getElementById("moduleName"),document.getElementById("moduleNameError"),/^[A-Za-z][a-zA-Z0-9_]+$/,"Only alphabets, numbers, underscore are allowed and cannot start with number");
+});
+$('#testerInitials').on('change keyup paste', function(){
+    isValid(document.getElementById("testerInitials"),document.getElementById("testerInitialsError"),/^[A-Za-z]+$/,"Only alphabets are allowed");
+});
+$('#productionMacroCall').on('change keyup paste', function(){
+    isValid(document.getElementById("productionMacroCall"),document.getElementById("productionMacroCallError"),/^[A-Za-z][a-zA-Z0-9_ ]+[)]$/,"first char must be alphabet and last ')'");
+});
+$('#testMacroCall').on('change keyup paste', function(){
+    isValid(document.getElementById("testMacroCall"),document.getElementById("testMacroCallError"),/^[A-Za-z][a-zA-Z0-9_]+[)]$/,"first char must be alphabet and last ')'");
 });
 
 function showDataSetDiv(){
@@ -167,6 +179,8 @@ function eachDataSetDiv(i){
     '<div class="col-sm-8 input-group">'+
       '<input type="text" class="form-control" required maxlength="32" id="dataSetName'+i+'" placeholder="Enter data set name">'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+    '</div><div class="col-sm-4"></div>'+
+    '<div class="col-sm-8"><p id="dataSetName'+i+'Error" style="color:red"></p>'+
     '</div></div>');
   dataSetName.appendTo("#dataSetsDiv");
   var listOfVariables = $('<div class="form-group">'+
@@ -174,13 +188,15 @@ function eachDataSetDiv(i){
     '<div class="col-sm-8 input-group">'+
       '<textarea class="form-control" required rows="5" id="listOfVariables'+i+'" placeholder="Enter list of variables"></textarea>'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
-    '</div></div>');
+      '</div><div class="col-sm-4"></div>'+
+      '<div class="col-sm-8"><p id="listOfVariables'+i+'Error" style="color:red"></p>'+
+      '</div></div>');
   listOfVariables.appendTo("#dataSetsDiv");
   var comparedWithAll = $('<div class="form-group">'+
     '<label class="control-label col-sm-4" for="comparedWithAll'+i+'">Variables compared for all:</label>'+
     '<div class="col-sm-8 input-group">'+
-      '<label class="radio-inline"><input type="radio" name="comparedWithAll'+i+'" value="compareYes" checked>Yes</label>'+
-      '<label class="radio-inline"><input type="radio" name="comparedWithAll'+i+'" value="compareNo">No</label>'+
+      '<label class="radio-inline"><input type="radio" id="comparedYes'+i+'" name="comparedWithAll'+i+'" value="compareYes" checked>Yes</label>'+
+      '<label class="radio-inline"><input type="radio" id="comparedNo'+i+'" name="comparedWithAll'+i+'" value="compareNo">No</label>'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
     '</div></div>');
   comparedWithAll.appendTo("#dataSetsDiv");
@@ -189,24 +205,28 @@ function eachDataSetDiv(i){
     '<div class="col-sm-8 input-group">'+
       '<textarea class="form-control" rows="5" id="variablesForNo'+i+'" placeholder="Enter variables"></textarea>'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
-    '</div></div>');
+      '</div><div class="col-sm-4"></div>'+
+      '<div class="col-sm-8"><p id="variablesForNo'+i+'Error" style="color:red"></p>'+
+      '</div></div>');
   comparedAllNo.appendTo("#dataSetsDiv");
   var filters = $('<div class="form-group">'+
     '<label class="control-label col-sm-4" for="filters'+i+'">Filters to be applied:</label>'+
     '<div class="col-sm-8 input-group">'+
-      '<label class="radio-inline"><input type="radio" name="filters'+i+'" value="filterYes">Yes</label>'+
-      '<label class="radio-inline"><input type="radio" name="filters'+i+'" value="filterNo" checked>No</label>'+
+      '<label class="radio-inline"><input type="radio" id="filtersYes'+i+'" name="filters'+i+'" value="filterYes">Yes</label>'+
+      '<label class="radio-inline"><input type="radio" id="filtersNo'+i+'" name="filters'+i+'" value="filterNo" checked>No</label>'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
     '</div></div>');
   filters.appendTo("#dataSetsDiv");
   var filtersYes = $('<div class="form-group" id="ifFilterYesDiv'+i+'" style="display:none">'+
-    '<label class="control-label col-sm-4" for="filters'+i+'">Filters to be applied:</label>'+
+    '<label class="control-label col-sm-4" for="filterYes'+i+'">Filters to be applied:</label>'+
     '<div class="col-sm-8 input-group">'+
     '<div class="input-group-addon">where</div>'+
-      '<input type="text" class="form-control" id="filters'+i+'" placeholder="Enter filters to be applied">'+
+      '<input type="text" class="form-control" id="filterYes'+i+'" placeholder="Enter filters to be applied">'+
       '<div class="input-group-addon">;</div>'+
       '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
-    '</div></div>');
+      '</div><div class="col-sm-4"></div>'+
+      '<div class="col-sm-8"><p id="filterYes'+i+'Error" style="color:red"></p>'+
+      '</div></div>');
   filtersYes.appendTo("#dataSetsDiv");
   $('input:radio').change(function() {
     var k = this.name.slice(-1);
@@ -221,13 +241,18 @@ function eachDataSetDiv(i){
     }
   });
   $('[data-toggle="tooltip"]').tooltip();
+  $('#dataSetName'+i).on('change keyup paste', function(){
+      isValid(document.getElementById("dataSetName"+i),document.getElementById("dataSetName"+i+"Error"),/^[A-Za-z][a-zA-Z0-9_]+$/,"first char must be alphabet and last ')'");
+  });
+  $('#listOfVariables'+i).on('change keyup paste', function(){
+      isValid(document.getElementById("listOfVariables"+i),document.getElementById("listOfVariables"+i+"Error"),/[A-Za-z][A-Za-z0-9]+/g,"first char must be alphabet and last ')'");
+  });
 }
 
 
 /* Validate that input value contains one or more digits or letters */
-function isValid(inputElm,errElm,regex) {
+function isValid(inputElm,errElm,regex,errMsg) {
    var isValid = (inputElm.value.match(regex) !== null);
-   var errMsg = "Please match the requested format.";
    postValidate(isValid, errMsg, errElm, inputElm);
    return isValid;
 }
@@ -261,20 +286,39 @@ function finalOutput(){
   var testerInitials = document.getElementById("testerInitials").value;
   var productionMacroCall = document.getElementById("productionMacroCall").value;
   var testMacroCall = document.getElementById("testMacroCall").value;
-  document.getElementById("moduleNameOutput").innerHTML = "%let fsrm_module_"+codeName+" = "+moduleName+" ;"
-  document.getElementById("initialsOutput").innerHTML = "%let initials_"+codeName+" = "+testerInitials+" ;"
-  document.getElementById("dataBaseOutput").innerHTML = "%let database_"+codeName+" = &jenkins_db.;"
-  document.getElementById("propertyOutput").innerHTML = "%let property_"+codeName+" = &jenkins_pid.;"
-  document.getElementById("prodMacroOutput").innerHTML = "%let productionmacro_"+codeName+" = '"+productionMacroCall+"';"
-  document.getElementById("testMacroOutput").innerHTML = "%let testmacro_"+codeName+" = '"+testMacroCall+"';"
-  document.getElementById("dataSetsOutput").innerHTML = "%let datasets_"+codeName+" = '"+dataSetName+"("+listOfVariables+") ("+variablesCompared+") ("+filters+")';"
   var dataSetNameArray = new Array();
-  for(var p = 1 ; p <=noOfDataSets ; p++ ){
+  var listOfVariablesArray = new Array();
+  var variablesComparedArray = new Array();
+  var filtersArray = new Array();
+  var datasetFinal = '';
+  for(var p = 1 ; p <= noOfDataSets ; p++ ){
     var dataSetName = document.getElementById("dataSetName"+p).value;
     dataSetNameArray[p] = dataSetName;
+    var listOfVariables = document.getElementById("listOfVariables"+p).value;
+    listOfVariablesArray[p] = listOfVariables;
+    if(document.getElementById("comparedNo"+p).checked){
+      var variablesForNo = document.getElementById("variablesForNo"+p).value;
+      variablesComparedArray[p] = variablesForNo;
+    }else {
+      variablesComparedArray[p] = 1;
+    }
+    if(document.getElementById("filtersYes"+p).checked){
+      var filterForYes = document.getElementById("variablesForNo"+p).value;
+      filtersArray[p] = filterForYes;
+    }else {
+      filtersArray[p] = 1;
+    }
   }
-  alert(dataSetNameArray);
-
+  for(var h = 1 ; h <=noOfDataSets ; h++ ){
+    datasetFinal = datasetFinal + " "+dataSetNameArray[h]+" ("+listOfVariablesArray[h]+") ("+variablesComparedArray[h]+") ("+filtersArray[h]+") ";
+  }
+  document.getElementById("moduleNameOutput").innerHTML = "%let fsrm_module_"+codeName+" = "+moduleName+" ;";
+  document.getElementById("initialsOutput").innerHTML = "%let initials_"+codeName+" = "+testerInitials+" ;";
+  document.getElementById("dataBaseOutput").innerHTML = "%let database_"+codeName+" = &jenkins_db.;";
+  document.getElementById("propertyOutput").innerHTML = "%let property_"+codeName+" = &jenkins_pid.;";
+  document.getElementById("prodMacroOutput").innerHTML = "%let productionmacro_"+codeName+" = '"+productionMacroCall+"';";
+  document.getElementById("testMacroOutput").innerHTML = "%let testmacro_"+codeName+" = '"+testMacroCall+"';";
+  document.getElementById("dataSetsOutput").innerHTML = "%let datasets_"+codeName+" = '"+datasetFinal+"';";
 }
 </script>
 </body>
