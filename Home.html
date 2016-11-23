@@ -116,7 +116,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-4 col-sm-10">
-      <button type="button" class="btn btn-primary" onclick="finalOutput()">Submit</button>
+      <button type="button" class="btn btn-primary" onclick="finalOutput();parent.scrollTo(0, 0);">Submit</button>
     </div>
   </div>
 </form>
@@ -149,19 +149,19 @@ $(document).ready(function(){
 });
 
 $('#codeName').on('change keyup paste', function(){
-    isValid(document.getElementById("codeName"),document.getElementById("codeNameError"),/^[a-zA-Z0-9_]+$/,"Only alphabets, numbers, underscore are allowed");
+    isValid(document.getElementById("codeName"),document.getElementById("codeNameError"),/^[A-Za-z_][a-zA-Z0-9_]+$/,"Only alphabets, numbers, underscore are allowed");
 });
 $('#moduleName').on('change keyup paste', function(){
-    isValid(document.getElementById("moduleName"),document.getElementById("moduleNameError"),/^[A-Za-z][a-zA-Z0-9_]+$/,"Only alphabets, numbers, underscore are allowed and cannot start with number");
+    isValid(document.getElementById("moduleName"),document.getElementById("moduleNameError"),/^[A-Za-z_][a-zA-Z0-9_]+$/,"Only alphabets, numbers, underscore are allowed and cannot start with number");
 });
 $('#testerInitials').on('change keyup paste', function(){
     isValid(document.getElementById("testerInitials"),document.getElementById("testerInitialsError"),/^[A-Za-z]+$/,"Only alphabets are allowed");
 });
 $('#productionMacroCall').on('change keyup paste', function(){
-    isValid(document.getElementById("productionMacroCall"),document.getElementById("productionMacroCallError"),/^[A-Za-z][a-zA-Z0-9_ ]+[)]$/,"first char must be alphabet and last ')'");
+    isValid(document.getElementById("productionMacroCall"),document.getElementById("productionMacroCallError"),/^[A-Za-z][a-zA-Z0-9_() ]+$/,"first char must be alphabet and last ')'");
 });
 $('#testMacroCall').on('change keyup paste', function(){
-    isValid(document.getElementById("testMacroCall"),document.getElementById("testMacroCallError"),/^[A-Za-z][a-zA-Z0-9_]+[)]$/,"first char must be alphabet and last ')'");
+    isValid(document.getElementById("testMacroCall"),document.getElementById("testMacroCallError"),/^[A-Za-z][a-zA-Z0-9_() ]+$/,"first char must be alphabet and last ')'");
 });
 
 function showDataSetDiv(){
@@ -303,7 +303,8 @@ function finalOutput(){
       variablesComparedArray[p] = 1;
     }
     if(document.getElementById("filtersYes"+p).checked){
-      var filterForYes = document.getElementById("variablesForNo"+p).value;
+      var filterForYes = document.getElementById("filterYes"+p).value;
+      alert(filterForYes);
       filtersArray[p] = filterForYes;
     }else {
       filtersArray[p] = 1;
