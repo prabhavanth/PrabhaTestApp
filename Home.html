@@ -158,10 +158,10 @@ $('#testerInitials').on('change keyup paste', function(){
     isValid(document.getElementById("testerInitials"),document.getElementById("testerInitialsError"),/^[A-Za-z]+$/,"Only alphabets are allowed");
 });
 $('#productionMacroCall').on('change keyup paste', function(){
-    isValid(document.getElementById("productionMacroCall"),document.getElementById("productionMacroCallError"),/^[A-Za-z][a-zA-Z0-9_() ]+$/,"first char must be alphabet and last ')'");
+    isValid(document.getElementById("productionMacroCall"),document.getElementById("productionMacroCallError"),/^[A-Za-z][a-zA-Z0-9_() ]+$/,"first char must be alphabet");
 });
 $('#testMacroCall').on('change keyup paste', function(){
-    isValid(document.getElementById("testMacroCall"),document.getElementById("testMacroCallError"),/^[A-Za-z][a-zA-Z0-9_() ]+$/,"first char must be alphabet and last ')'");
+    isValid(document.getElementById("testMacroCall"),document.getElementById("testMacroCallError"),/^[A-Za-z][a-zA-Z0-9_() ]+$/,"first char must be alphabet");
 });
 
 function showDataSetDiv(){
@@ -242,10 +242,10 @@ function eachDataSetDiv(i){
   });
   $('[data-toggle="tooltip"]').tooltip();
   $('#dataSetName'+i).on('change keyup paste', function(){
-      isValid(document.getElementById("dataSetName"+i),document.getElementById("dataSetName"+i+"Error"),/^[A-Za-z][a-zA-Z0-9_]+$/,"first char must be alphabet and last ')'");
+      isValid(document.getElementById("dataSetName"+i),document.getElementById("dataSetName"+i+"Error"),/^[A-Za-z][a-zA-Z0-9_]+$/,"first char must be alphabet");
   });
   $('#listOfVariables'+i).on('change keyup paste', function(){
-      isValid(document.getElementById("listOfVariables"+i),document.getElementById("listOfVariables"+i+"Error"),/[A-Za-z][A-Za-z0-9]+/g,"first char must be alphabet and last ')'");
+      isValid(document.getElementById("listOfVariables"+i),document.getElementById("listOfVariables"+i+"Error"),/[A-Za-z][A-Za-z0-9_()]+/g,"first char must be alphabet");
   });
 }
 
