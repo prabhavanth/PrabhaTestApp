@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Test App</title>
+  <title>Add new module</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,8 +16,8 @@
 <body>
 
   <div class="jumbotron text-center">
-    <h1>Test App</h1>
-    <p>You can add a test</p>
+    <h1>Add a new module to the output dataset comparison</h1>
+    <p>Enter all the following fields and submit. Then copy all the %let statements in the output box on the right and paste them in run_test module. Use '?' next to each field for all the instructions and an example.</p>
   </div>
 
 <div class="container" id="addTestDiv">
@@ -25,10 +25,10 @@
       <div class="col-sm-7">
 <form class="form-horizontal">
   <div class="form-group">
-    <label class="control-label col-sm-4" for="codeName">Module code name:</label>
+    <label class="control-label col-sm-4" for="codeName">Module code name</label>
     <div class="col-sm-8 input-group">
-      <input type="text" class="form-control" maxlength="10" id="codeName" required  placeholder="Enter code name">
-      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+      <input type="text" class="form-control" maxlength="8" id="codeName" required  placeholder="Enter code name">
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Each module that is included in the run_test has a code name. For example, code name of fsrm_etl_otb module is 'OTB'. This code is like an identification of each module, it separates the module’s set of inputs to fsrm_compare_results from those of other modules.">?</a></div>
     </div>
     <div class="col-sm-4">
     </div>
@@ -37,10 +37,10 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-4" for="moduleName">Module name:</label>
+    <label class="control-label col-sm-4" for="moduleName">Module name</label>
     <div class="col-sm-8 input-group">
       <input type="text" class="form-control" id="moduleName" required  maxlength="32" placeholder="Enter module name">
-      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Name of the module that is being added to the suite. Ex: fsrm_est_kpi">?</a></div>
     </div>
     <div class="col-sm-4">
     </div>
@@ -49,10 +49,10 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-4" for="testerInitials">Tester Initials:</label>
+    <label class="control-label col-sm-4" for="testerInitials">Tester Initials</label>
     <div class="col-sm-8 input-group">
       <input type="text" class="form-control" maxlength="5" required  id="testerInitials" placeholder="Enter tester initials">
-      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Initials to identify tester of the module. Example: PC">?</a></div>
     </div>
     <div class="col-sm-4">
     </div>
@@ -61,12 +61,12 @@
     </div>
   </div>
   <div class="form-group has-feedback">
-    <label class="control-label col-sm-4" for="productionMacroCall">Production Macro call:</label>
+    <label class="control-label col-sm-4" for="productionMacroCall">Production macro call</label>
     <div class="col-sm-8 input-group">
       <div class="input-group-addon">%</div>
       <textarea class="form-control" rows="3" required id="productionMacroCall" placeholder="Enter production macro call"></textarea>
       <div class="input-group-addon">;</div>
-      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Exact call to the trunk macro with the necessary inputs to the macro’s input parameters with no '%' required before the call and no ';' at the end of the call. If the macro call requires database, property and keep_lib as inputs, give their values as &database, &property and &prod_lib respectively. Ex: fsrm_etl_pace(property=&property, ndays_future=1095,nyears_historical=3,minoccdate=5,minbookingid=5,g2database=&database,debug=&debug.,_rc=,keep_lib=&prod_lib)">?</a></div>
     </div>
     <div class="col-sm-4">
     </div>
@@ -75,12 +75,12 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-4" for="testMacroCall">Test Macro call:</label>
+    <label class="control-label col-sm-4" for="testMacroCall">Test macro call</label>
     <div class="col-sm-8 input-group">
       <div class="input-group-addon">%</div>
       <textarea class="form-control" rows="3" required id="testMacroCall" placeholder="Enter test macro call"></textarea>
         <div class="input-group-addon">;</div>
-        <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray! Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray! Hoorkajsfgkasudgfkuasdf iuafrkujghasleufh sakurfaur iasutkuray!">?</a></div>
+        <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Exact call to the test macro with the necessary inputs to the macro’s input parameters with no '%' required before the call and no ';' at the end of the call. If the macro requires database, property, work_lib and keep_lib as inputs, give their value as &database, &property, &test_lib and &test_lib respectively. Ex: fsrm_etl_pace_pc(property=&property,g2database=&database,work_lib=&test_lib,keep_lib=&test_lib,ndays_future=1095,nyears_historical=3,minoccdate=5,minbookingid=5)">?</a></div>
     </div>
     <div class="col-sm-4">
     </div>
@@ -89,10 +89,9 @@
     </div>
   </div>
   <div class="form-group">
-    <label class="control-label col-sm-4" for="noOfDataSets">No of Data sets:</label>
+    <label class="control-label col-sm-4" for="noOfDataSets">Number of datasets to be compared</label>
     <div class="col-sm-8 input-group">
       <select class="form-control" id="noOfDataSets">
-       <option>0</option>
        <option>1</option>
        <option>2</option>
        <option>3</option>
@@ -104,7 +103,7 @@
        <option>9</option>
        <option>10</option>
      </select>
-      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>
+      <div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Total number of keep_lib and G2 datasets generated by this module. Example: fsrm_etl_occ_prep module generates two keep_lib datasets.">?</a></div>
     </div>
     <div class="col-sm-4">
     </div>
@@ -149,19 +148,19 @@ $(document).ready(function(){
 });
 
 $('#codeName').on('change keyup paste', function(){
-    isValid(document.getElementById("codeName"),document.getElementById("codeNameError"),/^[A-Za-z_][a-zA-Z0-9_]+$/,"Only alphabets, numbers, underscore are allowed");
+    isValid(document.getElementById("codeName"),document.getElementById("codeNameError"),/^[A-Za-z_][a-zA-Z0-9_]+$/,"Only alphabets, digits and underscore are allowed. First character must be an alphabet. Length can be upto 10 characters.");
 });
 $('#moduleName').on('change keyup paste', function(){
-    isValid(document.getElementById("moduleName"),document.getElementById("moduleNameError"),/^[A-Za-z_][a-zA-Z0-9_]+$/,"Only alphabets, numbers, underscore are allowed and cannot start with number");
+    isValid(document.getElementById("moduleName"),document.getElementById("moduleNameError"),/^[A-Za-z_][a-zA-Z0-9_]+$/,"Only alphabets, digits and underscore are allowed. First character can not be a digit. Length can be upto 32 characters");
 });
 $('#testerInitials').on('change keyup paste', function(){
-    isValid(document.getElementById("testerInitials"),document.getElementById("testerInitialsError"),/^[A-Za-z]+$/,"Only alphabets are allowed");
+    isValid(document.getElementById("testerInitials"),document.getElementById("testerInitialsError"),/^[A-Za-z]+$/,"Only alphabets are allowed. Length can be upto 5 characters");
 });
 $('#productionMacroCall').on('change keyup paste', function(){
-    isValid(document.getElementById("productionMacroCall"),document.getElementById("productionMacroCallError"),/^[A-Za-z][a-zA-Z0-9_() ]+$/,"first char must be alphabet");
+    isValid(document.getElementById("productionMacroCall"),document.getElementById("productionMacroCallError"),/^[A-Za-z]*$/,"First character must be an alphabet");
 });
 $('#testMacroCall').on('change keyup paste', function(){
-    isValid(document.getElementById("testMacroCall"),document.getElementById("testMacroCallError"),/^[A-Za-z][a-zA-Z0-9_() ]+$/,"first char must be alphabet");
+    isValid(document.getElementById("testMacroCall"),document.getElementById("testMacroCallError"),/^[A-Za-z][a-zA-Z0-9_() ]+$/,"First character must be an alphabet");
 });
 
 function showDataSetDiv(){
@@ -175,55 +174,55 @@ function eachDataSetDiv(i){
   var dataSetHeading = $('<h4>Date set '+i+'</h4>');
   dataSetHeading.appendTo("#dataSetsDiv");
   var dataSetName = $('<div class="form-group">'+
-    '<label class="control-label col-sm-4" for="dataSetName'+i+'">Data Set name:</label>'+
+    '<label class="control-label col-sm-4" for="dataSetName'+i+'">Dataset name</label>'+
     '<div class="col-sm-8 input-group">'+
       '<input type="text" class="form-control" required maxlength="32" id="dataSetName'+i+'" placeholder="Enter data set name">'+
-      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Name of the dataset. Ex: fs_property_kpi">?</a></div>'+
     '</div><div class="col-sm-4"></div>'+
     '<div class="col-sm-8"><p id="dataSetName'+i+'Error" style="color:red"></p>'+
     '</div></div>');
   dataSetName.appendTo("#dataSetsDiv");
   var listOfVariables = $('<div class="form-group">'+
-    '<label class="control-label col-sm-4" for="listOfVariables'+i+'">List of variables:</label>'+
+    '<label class="control-label col-sm-4" for="listOfVariables'+i+'">List of variables on which the above dataset is to be sorted</label>'+
     '<div class="col-sm-8 input-group">'+
       '<textarea class="form-control" required rows="5" id="listOfVariables'+i+'" placeholder="Enter list of variables"></textarea>'+
-      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Enter the variables separated by space. Ex: For otb_roomview_expanded dataset created by fsrm_etl_occ_prep this field would be - propertyid bookingid eventid occdate functionroomid dayperiodid">?</a></div>'+
       '</div><div class="col-sm-4"></div>'+
       '<div class="col-sm-8"><p id="listOfVariables'+i+'Error" style="color:red"></p>'+
       '</div></div>');
   listOfVariables.appendTo("#dataSetsDiv");
   var comparedWithAll = $('<div class="form-group">'+
-    '<label class="control-label col-sm-4" for="comparedWithAll'+i+'">Variables compared for all:</label>'+
+    '<label class="control-label col-sm-4" for="comparedWithAll'+i+'">Can this dataset be compared for all the variables?</label>'+
     '<div class="col-sm-8 input-group">'+
       '<label class="radio-inline"><input type="radio" id="comparedYes'+i+'" name="comparedWithAll'+i+'" value="compareYes" checked>Yes</label>'+
       '<label class="radio-inline"><input type="radio" id="comparedNo'+i+'" name="comparedWithAll'+i+'" value="compareNo">No</label>'+
-      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="If yes, then all the variables in the dataset generated by trunk macro are used for comparison.">?</a></div>'+
     '</div></div>');
   comparedWithAll.appendTo("#dataSetsDiv");
   var comparedAllNo = $('<div class="form-group" id="ifComparedAllNoDiv'+i+'" style="display:none">'+
-    '<label class="control-label col-sm-4" for="variablesForNo'+i+'">Variables to be compared:</label>'+
+    '<label class="control-label col-sm-4" for="variablesForNo'+i+'">List of variables to be compared</label>'+
     '<div class="col-sm-8 input-group">'+
       '<textarea class="form-control" rows="5" id="variablesForNo'+i+'" placeholder="Enter variables"></textarea>'+
-      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Enter the list of variables that are to be compared, separated by space. For example, when comparing the keep_lib dataset utilization, generated by fsrm_est_Calibrate, we need only - propertyid lumpid meetingroomtypeid staydt dayperiodid utilization variables to be compared.">?</a></div>'+
       '</div><div class="col-sm-4"></div>'+
       '<div class="col-sm-8"><p id="variablesForNo'+i+'Error" style="color:red"></p>'+
       '</div></div>');
   comparedAllNo.appendTo("#dataSetsDiv");
   var filters = $('<div class="form-group">'+
-    '<label class="control-label col-sm-4" for="filters'+i+'">Filters to be applied:</label>'+
+    '<label class="control-label col-sm-4" for="filters'+i+'">Are there any filters to be applied on the dataset created by trunk module before comparison?</label>'+
     '<div class="col-sm-8 input-group">'+
       '<label class="radio-inline"><input type="radio" id="filtersYes'+i+'" name="filters'+i+'" value="filterYes">Yes</label>'+
       '<label class="radio-inline"><input type="radio" id="filtersNo'+i+'" name="filters'+i+'" value="filterNo" checked>No</label>'+
-      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="If the trunk macro writes this dataset to G2 and if there is a need to apply few filters while getting this dataset from G2 database, then select - Yes">?</a></div>'+
     '</div></div>');
   filters.appendTo("#dataSetsDiv");
   var filtersYes = $('<div class="form-group" id="ifFilterYesDiv'+i+'" style="display:none">'+
-    '<label class="control-label col-sm-4" for="filterYes'+i+'">Filters to be applied:</label>'+
+    '<label class="control-label col-sm-4" for="filterYes'+i+'">Filters to be applied</label>'+
     '<div class="col-sm-8 input-group">'+
     '<div class="input-group-addon">where</div>'+
       '<input type="text" class="form-control" id="filterYes'+i+'" placeholder="Enter filters to be applied">'+
       '<div class="input-group-addon">;</div>'+
-      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">?</a></div>'+
+      '<div class="input-group-addon"><a href="#" data-toggle="tooltip" data-placement="right" title="Assume that you are writing a where statement, except for where and ; are already present. Ex: propertyid=&property. and revenuegroupid gt 0">?</a></div>'+
       '</div><div class="col-sm-4"></div>'+
       '<div class="col-sm-8"><p id="filterYes'+i+'Error" style="color:red"></p>'+
       '</div></div>');
@@ -242,10 +241,10 @@ function eachDataSetDiv(i){
   });
   $('[data-toggle="tooltip"]').tooltip();
   $('#dataSetName'+i).on('change keyup paste', function(){
-      isValid(document.getElementById("dataSetName"+i),document.getElementById("dataSetName"+i+"Error"),/^[A-Za-z][a-zA-Z0-9_]+$/,"first char must be alphabet");
+      isValid(document.getElementById("dataSetName"+i),document.getElementById("dataSetName"+i+"Error"),/^[A-Za-z][a-zA-Z0-9_]+$/,"Only alphabets, digits and underscore are allowed. First character can not be a digit. Length can be upto 32 characters");
   });
   $('#listOfVariables'+i).on('change keyup paste', function(){
-      isValid(document.getElementById("listOfVariables"+i),document.getElementById("listOfVariables"+i+"Error"),/[A-Za-z][A-Za-z0-9_()]+/g,"first char must be alphabet");
+      isValid(document.getElementById("listOfVariables"+i),document.getElementById("listOfVariables"+i+"Error"),/[A-Za-z][A-Za-z0-9_()]+/g,"First char must be alphabet");
   });
 }
 
@@ -304,7 +303,6 @@ function finalOutput(){
     }
     if(document.getElementById("filtersYes"+p).checked){
       var filterForYes = document.getElementById("filterYes"+p).value;
-      alert(filterForYes);
       filtersArray[p] = filterForYes;
     }else {
       filtersArray[p] = 1;
